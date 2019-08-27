@@ -2,3 +2,5 @@ maven/target
 maven/.classpath
 maven/.project
 maven/.settings
+
+rust/target
