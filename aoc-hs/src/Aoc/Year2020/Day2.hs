@@ -19,7 +19,7 @@ part2 :: String -> Int
 part2 = anyPart isValid
     where
         isValid (PassLine minRange maxRange character password) =
-            (isMin && not isMax) || (not isMin && isMax)
+            isMin /= isMax
             where
                 isMin = password!!(minRange - 1) == character
                 isMax = password!!(maxRange - 1) == character
