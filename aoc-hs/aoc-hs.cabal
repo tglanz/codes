@@ -12,13 +12,16 @@ extra-source-files:
 
 library
   exposed-modules:
-      Year2020
+      Aoc.Util
+      Aoc.Year2020.Day1
+      Aoc.Year2020.Day2
   other-modules:
       Paths_aoc_hs
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , parsec ==3.1.14.0
   default-language: Haskell2010
 
 executable aoc-hs-exe
@@ -31,6 +34,7 @@ executable aoc-hs-exe
   build-depends:
       aoc-hs
     , base >=4.7 && <5
+    , parsec ==3.1.14.0
   default-language: Haskell2010
 
 test-suite aoc-hs-test
@@ -44,4 +48,5 @@ test-suite aoc-hs-test
   build-depends:
       aoc-hs
     , base >=4.7 && <5
+    , parsec ==3.1.14.0
   default-language: Haskell2010
