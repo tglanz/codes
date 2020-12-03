@@ -2,33 +2,24 @@ module Aoc.Year2020.Day2 (part1, part2) where
 
 import Text.Parsec
 import Data.Maybe
-import Data.List
 
 data PassLine = PassLine Int Int Char String
 
 part1 :: String -> Int 
 part1 = anyPart isValid
     where
-        isValid (PassLine minRange maxRange character password) = higher && lower 
+        isValid (PassLine lo hi token pass) = lo <= count && count <= hi 
             where
-                higher = occurences >= minRange
-                lower = occurences <= maxRange
-                occurences = length $ findIndices (== character) password 
+                count = length $ filter (== token) pass 
  
 part2 :: String -> Int
 part2 = anyPart isValid
     where
-        isValid (PassLine minRange maxRange character password) =
-            isMin /= isMax
-            where
-                isMin = password!!(minRange - 1) == character
-                isMax = password!!(maxRange - 1) == character
+        isValid (PassLine lo hi token pass) =
+            (pass!!(lo - 1) == token) /= (pass!!(hi - 1) == token)
 
 anyPart :: (PassLine -> Bool) -> String -> Int
-anyPart isValid content = length $ filter isValid (parseLines content)
-
-parseLines :: String -> [PassLine]
-parseLines content = mapMaybe parseLine (lines content)
+anyPart isValid content = length $ filter isValid $ mapMaybe parseLine $ lines content
 
 parseLine :: String -> Maybe PassLine 
 parseLine content = case parse passLineParser "" content of
@@ -37,15 +28,8 @@ parseLine content = case parse passLineParser "" content of
 
 passLineParser :: Parsec String () PassLine 
 passLineParser = do
-    minRange <- many1 digit 
-    char '-' 
-
-    maxRange <- many1 digit 
-    char ' '
-
-    character <- anyChar
-    string ": "
-
+    lo <- many1 digit ; char '-' 
+    hi <- many1 digit ; char ' '
+    token <- anyChar ; string ": "
     pass <- many1 anyChar
-
-    return $ PassLine(read minRange) (read maxRange) character pass
+    return $ PassLine(read lo) (read hi) token pass
