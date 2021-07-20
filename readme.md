@@ -1,6 +1,8 @@
 codes
 =====
 
+__NOTE__ This should be havily restructured
+
 ## Purposes
 
 learning
