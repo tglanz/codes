@@ -1,0 +1,12 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+       {
+           "type": "codelldb",
+           "request": "launch",
+           "name": "Debug example/simple",
+           "program": "target/debug/examples/simple",
+           "cwd": "${workspaceFolder}"
+       }
+   ]
+}
